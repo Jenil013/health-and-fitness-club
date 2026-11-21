@@ -3,9 +3,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 
@@ -30,6 +35,15 @@ public class Members {
 
     @Column(name = "date_of_birth")
     private LocalDate date_of_birth;
+
+    // Participates table
+    @ManyToMany
+    @JoinTable(
+        name = "participates",
+        joinColumns = @JoinColumn(name = "member_id"),
+        inverseJoinColumns = @JoinColumn(name = "session_id")
+    )
+    private Set<Session> sessions = new HashSet<>();
 
     public Long getMember_id() {
         return member_id;
