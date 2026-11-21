@@ -5,6 +5,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.time.LocalDate;
+
+import jakarta.persistence.Column;
+
 @Entity
 @Table(name = "members")
 public class Members {
@@ -25,9 +29,9 @@ public class Members {
     private String gender;
 
     @Column(name = "date_of_birth")
-    private Date date_of_birth;
+    private LocalDate date_of_birth;
 
-    get public Long getMember_id() {
+    public Long getMember_id() {
         return member_id;
     }
 
@@ -67,11 +71,11 @@ public class Members {
         this.gender = gender;
     }
 
-    public Date getDate_of_birth() {
+    public LocalDate getDate_of_birth() {
         return date_of_birth;
     }
 
-    public void setDate_of_birth(Date date_of_birth) {
+    public void setDate_of_birth(LocalDate date_of_birth) {
         this.date_of_birth = date_of_birth;
     }
 }
