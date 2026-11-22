@@ -17,10 +17,10 @@ public class Maintenance_Record {
     private Long maintenance_id;
 
     @Column(name = "repair_status", nullable = false)
-    private Long repair_status;
+    private String repair_status;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "equipment_id", nullable = false)
+    @JoinColumn(name = "admin_id", nullable = false)
     private Admin admin;
 
     @ManyToOne(optional = false)
