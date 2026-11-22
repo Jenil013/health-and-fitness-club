@@ -28,5 +28,5 @@ public class Payment_Record {
     
     @ManyToOne(optional = false)
     @JoinColumn (name = "member_id", nullable = false)
-    private Members member;
+    private Member member;
 }

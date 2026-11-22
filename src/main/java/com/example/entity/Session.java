@@ -41,5 +41,5 @@ public class Session {
 
     // Participates table
     @ManyToMany(mappedBy = "sessions")
-    private Set<Members> members = new HashSet<>();
+    private Set<Member> members = new HashSet<>();
 }

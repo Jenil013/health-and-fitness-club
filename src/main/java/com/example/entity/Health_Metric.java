@@ -32,5 +32,5 @@ public class Health_Metric {
 
     @ManyToOne(optional = false)
     @JoinColumn (name = "member_id", nullable = false)
-    private Members member;
+    private Member member;
 }

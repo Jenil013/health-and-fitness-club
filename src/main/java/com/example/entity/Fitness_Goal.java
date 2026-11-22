@@ -25,5 +25,5 @@ public class Fitness_Goal {
     @OneToOne(optional = false)
     @MapsId 
     @JoinColumn(name = "member_id")
-    private Members member;
+    private Member member;
 }

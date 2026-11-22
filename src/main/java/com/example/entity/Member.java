@@ -16,7 +16,7 @@ import jakarta.persistence.Column;
 
 @Entity
 @Table(name = "member")
-public class Members {
+public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long member_id;
