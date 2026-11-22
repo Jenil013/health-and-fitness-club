@@ -15,7 +15,7 @@ import java.util.Set;
 import jakarta.persistence.Column;
 
 @Entity
-@Table(name = "members")
+@Table(name = "member")
 public class Members {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
