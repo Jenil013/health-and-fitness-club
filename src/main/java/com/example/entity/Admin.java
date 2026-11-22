@@ -13,6 +13,7 @@ public class Admin {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "admin_id")
     private Long admin_id;
 
     @Column(name = "name", nullable = false)

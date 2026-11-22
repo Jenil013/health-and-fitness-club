@@ -13,6 +13,7 @@ public class Equipment {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "equipment_id")
     private Long equipment_id;
 
     @Column(name = "equipment_name", nullable = false)

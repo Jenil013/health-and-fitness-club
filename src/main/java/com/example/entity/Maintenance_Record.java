@@ -12,8 +12,10 @@ import jakarta.persistence.Table;
 @Entity
 @Table (name = "maintenance_record")
 public class Maintenance_Record {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "maintenance_id")
     private Long maintenance_id;
 
     @Column(name = "repair_status", nullable = false)

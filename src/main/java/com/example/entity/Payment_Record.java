@@ -17,6 +17,7 @@ public class Payment_Record {
     
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "payment_id")
     private Long payment_id;
 
     @Column (name = "payment_date", nullable = false)
