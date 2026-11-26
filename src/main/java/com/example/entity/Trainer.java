@@ -17,4 +17,9 @@ public class Trainer {
 
     @Column (name = "name", nullable = false)
     private String name;
+
+    //Getter and Setter for Trainer
+    public String getName() {
+        return name;
+    }
 }
