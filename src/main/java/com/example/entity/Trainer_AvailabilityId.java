@@ -38,4 +38,13 @@ public class Trainer_AvailabilityId implements Serializable {
     public int hashCode() {
         return Objects.hash(trainer, start_at);
     }
+
+    // Getter and Setter
+    public Long getTrainer() {
+        return trainer;
+    }
+
+    public LocalDateTime getStart_at() {
+        return start_at;
+    }
 }

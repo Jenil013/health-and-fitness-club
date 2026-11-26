@@ -22,4 +22,8 @@ public class Trainer {
     public String getName() {
         return name;
     }
+
+    public Long getTrainer_id() {
+        return trainer_id;
+    }
 }

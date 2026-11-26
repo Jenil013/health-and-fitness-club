@@ -1,9 +1,16 @@
 package com.example.service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import com.example.entity.Member;
 import com.example.entity.Session;
+import com.example.entity.Trainer;
+import com.example.entity.Room;
 import com.example.repository.MemberRepository;
 
 
@@ -22,7 +29,77 @@ public class MemberService {
     }
 
     public void schedulePrivateSession(Member member) {
-        // Implementation for scheduling a private session with a trainer
+        Scanner sc = new Scanner(System.in);
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        System.out.println("--- Schedule Private Session ---");
+        System.out.print("Start (yyyy-MM-dd HH:mm): ");
+        String startStr = sc.nextLine().trim();
+        System.out.print("End   (yyyy-MM-dd HH:mm): ");
+        String endStr = sc.nextLine().trim();
+
+        LocalDateTime start;
+        LocalDateTime end;
+        try {
+            start = LocalDateTime.parse(startStr, fmt);
+            end = LocalDateTime.parse(endStr, fmt);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date/time format.");
+            return;
+        }
+
+        if (!end.isAfter(start)) {
+            System.out.println("End must be after start.");
+            return;
+        }
+
+        List<Trainer> trainers = memberRepository.findAvailableTrainers(start, end);
+        if (trainers.isEmpty()) {
+            System.out.println("No trainers available for that time.");
+            return;
+        }
+        System.out.println("--- Available Trainers ---");
+        for (Trainer t : trainers) {
+            System.out.printf("ID: %d | Name: %s%n", t.getTrainer_id(), t.getName());
+        }
+
+        List<Room> rooms = memberRepository.findAvailableRooms(start, end);
+        if (rooms.isEmpty()) {
+            System.out.println("No rooms available for that time.");
+            return;
+        }
+        System.out.println("--- Available Rooms ---");
+        for (Room r : rooms) {
+            System.out.printf("ID: %d%n", r.getRoom_id());
+        }
+
+        System.out.print("Pick Trainer ID (0 = cancel): ");
+        long trainerId = sc.nextLong();
+        if (trainerId == 0) return;
+        boolean validTrainer = trainers.stream()
+                .anyMatch(t -> t.getTrainer_id().equals(trainerId));
+        if (!validTrainer) {
+            System.out.println("Invalid trainer (must pick from the list).");
+            return;
+        }
+
+        System.out.print("Pick Room ID (0 = cancel): ");
+        long roomId = sc.nextLong();
+        if (roomId == 0) return;
+        boolean validRoom = rooms.stream()
+                .anyMatch(r -> r.getRoom_id().equals(roomId));
+        if (!validRoom) {
+            System.out.println("Invalid room (must pick from the list).");
+            return;
+        }
+
+        try {
+            Long sessionId = memberRepository.bookPrivateSession(
+                    member.getMember_id(), trainerId, roomId, start, end);
+            System.out.println("Private session booked. Session ID = " + sessionId);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Booking failed: " + e.getMessage());
+        }
     }
 
     public void scheduleGroupClass(Member member) {
