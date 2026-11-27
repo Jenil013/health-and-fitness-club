@@ -12,12 +12,15 @@ import com.example.repository.Database;
  */
 public class App 
 {
-    public void main( String[] args )
+    public static void main( String[] args )
     {
         // connectToDatabase();
         Database db;
         try{
             db = new Database();
+            if(db != null){
+                System.out.println("Connected to database successfully");
+            }
         }
         catch(Throwable e){
             e.printStackTrace(); 
