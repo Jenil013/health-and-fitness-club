@@ -45,6 +45,18 @@ public class Member {
     )
     private Set<Session> sessions = new HashSet<>();
 
+
+    public Member(){//Needed for Hibernate mapping
+
+    }
+
+    public Member(String name, String email, String phone, String gender, LocalDate dob){
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.gender = gender;
+        this.date_of_birth = dob;
+    }
     public Long getMember_id() {
         return member_id;
     }

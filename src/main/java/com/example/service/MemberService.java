@@ -81,7 +81,7 @@ public class MemberService {
                 //Replace with Repository class function
                 try{
                     db.update(member);
-                    System.out.println("New name saved successfully");
+                    System.out.println("Date of birth saved successfully");
                 }
                 catch(Throwable e){
                     System.err.println("Error saving new name.");
