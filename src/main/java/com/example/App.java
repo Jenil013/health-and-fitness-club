@@ -12,17 +12,14 @@ import com.example.repository.Database;
  */
 public class App 
 {
-    public void main( String[] args )
+    public static void main(String[] args)
     {
-        // connectToDatabase();
-        Database db;
-        try{
-            db = new Database();
+        try {
+            Database db = new Database();
+            System.out.println("Database and Hibernate tables initialized");
+        } catch (Throwable e) {
+            e.printStackTrace();
         }
-        catch(Throwable e){
-            e.printStackTrace(); 
-        }
-
     }
 
     // void connectToDatabase() {
