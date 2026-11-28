@@ -43,6 +43,10 @@ public class Member {
         joinColumns = @JoinColumn(name = "member_id"),
         inverseJoinColumns = @JoinColumn(name = "session_id")
     )
+
+    private Fitness_Goal fitnessGoal;
+    private Health_Metric healthMetric;
+
     private Set<Session> sessions = new HashSet<>();
 
     public Long getMember_id() {
@@ -91,5 +95,21 @@ public class Member {
 
     public void setDate_of_birth(LocalDate date_of_birth) {
         this.date_of_birth = date_of_birth;
+    }
+    public Fitness_Goal getFitnessGoal() {
+        return fitnessGoal;
+    }
+    public void setFitnessGoalTargetBodyFat(double target_body_fat) {
+        this.fitnessGoal.setTarget_body_fat(target_body_fat);
+    }
+    public void setFitnessGoalTargetWeight(double target_weight) {
+        this.fitnessGoal.setTarget_weight(target_weight);
+    }
+
+    public void setHealthMetricWeight(double weight) {
+        this.healthMetric.setWeight(weight);
+    }
+    public void setHealthMetricHeight(double height) {
+        this.healthMetric.setHeight(height);
     }
 }

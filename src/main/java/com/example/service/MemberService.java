@@ -1,13 +1,18 @@
 package com.example.service;
+import com.example.entity.Member;
+import com.example.repository.Database;
+import com.example.repository.MemberRepository;
 
 public class MemberService {
-    
-    public void updateFitnessGoals() {
-        // Implementation for updating member fitness goals
+     MemberRepository memberRepository = new MemberRepository();
+
+    public void updateFitnessGoals(Member member, double target_weight, double target_body_fat) {
+        
+        memberRepository.updateFitnessGoals(member, target_weight, target_body_fat);
     }
 
-    public void inputHealthMetrics() {
-        // Implementation for inputting health metrics (weight, BMI, etc.)
+    public void inputHealthMetrics(Member member, double weight, double height) {
+        memberRepository.inputHealthMetrics(member, weight, height);
     }
 
     public void schedulePrivateSession() {
