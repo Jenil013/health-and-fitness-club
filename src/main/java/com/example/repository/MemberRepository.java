@@ -10,7 +10,6 @@ import com.example.entity.Admin;
 import com.example.entity.Member;
 import com.example.entity.Room;
 import com.example.entity.Trainer;
-import com.example.entity.Trainer_Availability;
 
 
 public class MemberRepository {
@@ -18,26 +17,19 @@ public class MemberRepository {
     private final SessionFactory sessionFactory =
             new Configuration().configure().buildSessionFactory();
 
+    public void close() {
+        sessionFactory.close();
+    }
+
     public List<Member> findAll() {
         try (org.hibernate.Session session = sessionFactory.openSession()) {
             return session.createQuery("FROM Member", Member.class).getResultList();
         }
     }
 
-    private SessionFactory buildFactory() {
-        return new Configuration()
-                .addAnnotatedClass(Member.class)
-                .addAnnotatedClass(com.example.entity.Session.class)
-                .addAnnotatedClass(Trainer.class)
-                .addAnnotatedClass(Room.class)
-                .addAnnotatedClass(Admin.class)
-                .addAnnotatedClass(Trainer_Availability.class)
-                .buildSessionFactory();
-    }
-
     // List upcoming group classes.
     public List<com.example.entity.Session> findUpcomingGroupSessions() {
-        try (org.hibernate.Session session = buildFactory().openSession()) {
+        try (org.hibernate.Session session = sessionFactory.openSession()) {
             return session.createQuery(
                     "FROM Session s JOIN FETCH s.trainer JOIN FETCH s.room WHERE s.session_type = 'GROUP' AND s.start_at > CURRENT_TIMESTAMP",
                     com.example.entity.Session.class)
@@ -47,7 +39,7 @@ public class MemberRepository {
 
     // How many members are in this session. 
     public long countEnrollmentForSession(Long sessionId) {
-        try (org.hibernate.Session session = buildFactory().openSession()) {
+        try (org.hibernate.Session session = sessionFactory.openSession()) {
             Long count = session.createQuery(
                     "SELECT COUNT(m) FROM Member m JOIN m.sessions s WHERE s.session_id = :id",
                     Long.class)
@@ -59,7 +51,7 @@ public class MemberRepository {
 
     // Check if member is enrolled in session
     public boolean isMemberEnrolled(Long memberId, Long sessionId) {
-        try (org.hibernate.Session session = buildFactory().openSession()) {
+        try (org.hibernate.Session session = sessionFactory.openSession()) {
             return session.createQuery(
                     "SELECT COUNT(m) FROM Member m JOIN m.sessions s WHERE m.member_id = :memberId AND s.session_id = :sessionId",
                     Long.class)
@@ -71,7 +63,7 @@ public class MemberRepository {
 
     // Enroll member in session
     public void enrollMemberInSession(Long memberId, Long sessionId) {
-        try (org.hibernate.Session hibernateSession = buildFactory().openSession()) {
+        try (org.hibernate.Session hibernateSession = sessionFactory.openSession()) {
             hibernateSession.beginTransaction();
 
             Member member = hibernateSession.get(Member.class, memberId);
@@ -91,7 +83,7 @@ public class MemberRepository {
 
     // Trainers with availability covering [start,end] and no overlapping session. 
     public List<Trainer> findAvailableTrainers(LocalDateTime start, LocalDateTime end) {
-        try (org.hibernate.Session session = buildFactory().openSession()) {
+        try (org.hibernate.Session session = sessionFactory.openSession()) {
             return session.createQuery("""
                 SELECT DISTINCT a.trainer FROM Trainer_Availability a 
                     WHERE a.id.start_at <= :start AND a.end_at >= :end 
@@ -107,7 +99,7 @@ public class MemberRepository {
 
     // Rooms with no overlapping session in [start,end].
     public List<Room> findAvailableRooms(LocalDateTime start, LocalDateTime end) {
-        try (org.hibernate.Session session = buildFactory().openSession()) {
+        try (org.hibernate.Session session = sessionFactory.openSession()) {
             return session.createQuery("""
             FROM Room r WHERE r.room_id NOT IN (
                     SELECT s.room.room_id FROM Session s 
@@ -122,7 +114,7 @@ public class MemberRepository {
     // Creates PRIVATE session (capacity 1) and enrolls member. Returns new session id. 
     public Long bookPrivateSession(Long memberId, Long trainerId, Long roomId,
                                     LocalDateTime start, LocalDateTime end) {
-        try (org.hibernate.Session hibernateSession = buildFactory().openSession()) {
+        try (org.hibernate.Session hibernateSession = sessionFactory.openSession()) {
             hibernateSession.beginTransaction();
 
             Member member = hibernateSession.get(Member.class, memberId);
@@ -158,7 +150,7 @@ public class MemberRepository {
     }
 
     public void updateFitnessGoals(Member member, double target_weight, double target_body_fat) {
-        try (org.hibernate.Session hibernateSession = buildFactory().openSession()) {
+        try (org.hibernate.Session hibernateSession = sessionFactory.openSession()) {
             hibernateSession.beginTransaction();
 
             Member existingMember = hibernateSession.get(Member.class, member.getMember_id());
@@ -175,7 +167,7 @@ public class MemberRepository {
     }
 
     public void inputHealthMetrics(Member member, double weight, double height) {
-        try (org.hibernate.Session hibernateSession = buildFactory().openSession()) {
+        try (org.hibernate.Session hibernateSession = sessionFactory.openSession()) {
             hibernateSession.beginTransaction();
 
             Member existingMember = hibernateSession.get(Member.class, member.getMember_id());

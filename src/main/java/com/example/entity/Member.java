@@ -112,4 +112,11 @@ public class Member {
     public void setHealthMetricHeight(double height) {
         this.healthMetric.setHeight(height);
     }
+    public Set<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(Set<Session> sessions) {
+        this.sessions = sessions;
+    }
 }

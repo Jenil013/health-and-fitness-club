@@ -17,4 +17,13 @@ public class Trainer {
 
     @Column (name = "name", nullable = false)
     private String name;
+
+    //Getter and Setter for Trainer
+    public String getName() {
+        return name;
+    }
+
+    public Long getTrainer_id() {
+        return trainer_id;
+    }
 }
