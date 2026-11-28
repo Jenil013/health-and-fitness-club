@@ -1,0 +1,25 @@
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://your_db</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">your_pwd</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        <mapping class="com.example.entity.Admin"/>
+        <mapping class="com.example.entity.Fitness_Goal"/>
+        <mapping class="com.example.entity.Health_Metric"/>
+        <mapping class="com.example.entity.Maintenance_Record"/>
+        <mapping class="com.example.entity.Maintenance_Task"/>
+        <mapping class="com.example.entity.MaintenanceTaskId"/>
+        <mapping class="com.example.entity.Equipment"/>
+        <mapping class="com.example.entity.Member"/>
+        <mapping class="com.example.entity.Payment_Record"/>
+        <mapping class="com.example.entity.Room"/>
+        <mapping class="com.example.entity.Session"/>
+        <mapping class="com.example.entity.Trainer_Availability"/>
+        <mapping class="com.example.entity.Trainer_AvailabilityId"/>
+        <mapping class="com.example.entity.Trainer"/>
+    </session-factory>
+</hibernate-configuration>
