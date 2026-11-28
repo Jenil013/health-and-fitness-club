@@ -33,4 +33,12 @@ public class Health_Metric {
     @ManyToOne(optional = false)
     @JoinColumn (name = "member_id", nullable = false)
     private Member member;
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
 }

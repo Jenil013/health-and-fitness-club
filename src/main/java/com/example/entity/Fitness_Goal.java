@@ -26,4 +26,18 @@ public class Fitness_Goal {
     @MapsId 
     @JoinColumn(name = "member_id")
     private Member member;
+
+    public double getTarget_weight() {
+        return target_weight;
+    }
+
+    public double getTarget_body_fat() {
+        return target_body_fat;
+    }
+    public void setTarget_weight(double target_weight) {
+        this.target_weight = target_weight;
+    }
+    public void setTarget_body_fat(double target_body_fat) {
+        this.target_body_fat = target_body_fat;
+    }
 }

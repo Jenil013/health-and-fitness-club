@@ -24,4 +24,17 @@ public class Trainer_Availability {
 
     @Column (name = "end_at", nullable = false)
     private LocalDateTime end_at;
+
+    // Getter and Setter
+    public Trainer_AvailabilityId getId() {
+        return id;
+    }
+
+    public LocalDateTime getEnd_at() {
+        return end_at;
+    }
+
+    public Trainer getTrainer() {
+        return trainer;
+    }
 }

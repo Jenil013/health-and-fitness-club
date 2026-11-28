@@ -18,4 +18,13 @@ public class Admin {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    // Getter and Setter
+    public Long getAdmin_id() {
+        return admin_id;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
