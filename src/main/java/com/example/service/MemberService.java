@@ -10,11 +10,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import com.example.entity.Member;
 import com.example.entity.Session;
 import com.example.entity.Trainer;
 import com.example.entity.Room;
-import com.example.repository.MemberRepository;
 
 
 public class MemberService {
